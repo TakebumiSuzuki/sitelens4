@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_context7_context7__query-docs",
+      "Bash(uv init:*)",
+      "Bash(uv add:*)",
+      "Bash(uv run:*)",
+      "Read(//tmp/**)",
+      "Bash(curl -s -X POST http://localhost:8000/api/analyze -H 'Content-Type: application/json' -d '{}')",
+      "Bash(curl -s -X POST http://localhost:8000/api/analyze -H 'Content-Type: application/json' -d '{\"domain\": \"https://apple.com\"}')"
+    ]
+  }
+}
