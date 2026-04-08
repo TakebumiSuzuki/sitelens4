@@ -1,4 +1,4 @@
-import { vi } from 'vitest';
+import { vi, beforeEach } from 'vitest';
 
 // chrome.storage.local のモック
 // onChanged は手動で発火できるよう listeners を保持する

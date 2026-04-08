@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { handleAnalyze, handleGoogleResults } from '@/background/service-worker';
-import { getState } from '@/lib/storage';
+import { getState } from '@/utils/storage';
 import type { AnalyzeResponse } from '@/types/analyze';
 
 const mockApiResponse: AnalyzeResponse = {

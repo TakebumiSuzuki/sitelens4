@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { getState, setState, subscribe } from '@/lib/storage';
+import { getState, setState, subscribe } from '@/utils/storage';
 
 describe('storage — getState / setState の統合動作', () => {
   it('初期状態は status: idle を返す', async () => {

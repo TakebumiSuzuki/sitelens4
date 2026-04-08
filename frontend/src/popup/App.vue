@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
-import { getState, subscribe } from '@/lib/storage';
-import type { StoredState } from '@/types/analyze';
-import AnalyzeButton from './components/AnalyzeButton.vue';
-import CompanyInfo from './components/CompanyInfo.vue';
-import ResultUrlList from './components/ResultUrlList.vue';
+  import { onMounted, onUnmounted, ref } from 'vue';
+  import { getState, subscribe } from '@/utils/storage';
+  import type { StoredState } from '@/types/analyze';
+  import AnalyzeButton from './components/AnalyzeButton.vue';
+  import CompanyInfo from './components/CompanyInfo.vue';
+  import ResultUrlList from './components/ResultUrlList.vue';
 
-const state = ref<StoredState>({ status: 'idle', updatedAt: Date.now() });
-let unsubscribe: (() => void) | null = null;
+  const state = ref<StoredState>({ status: 'idle', updatedAt: Date.now() });
+  let unsubscribe: (() => void) | null = null;
 
-onMounted(async () => {
-  state.value = await getState();
-  unsubscribe = subscribe((s) => {
-    state.value = s;
+  onMounted(async () => {
+    state.value = await getState();
+    unsubscribe = subscribe((s) => {
+      state.value = s;
+    });
   });
-});
 
-onUnmounted(() => {
-  unsubscribe?.();
-});
+  onUnmounted(() => {
+    unsubscribe?.();
+  });
 
-function onAnalyze() {
-  chrome.runtime.sendMessage({ type: 'ANALYZE_START' });
-}
+  function onAnalyze() {
+    chrome.runtime.sendMessage({ type: 'ANALYZE_START' });
+  }
 </script>
 
 <template>

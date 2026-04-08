@@ -1,6 +1,6 @@
-import { fetchAnalyze, fetchAnalyzeMock } from '@/lib/api';
-import { getState, setState } from '@/lib/storage';
-import type { RuntimeMessage } from '@/lib/messages';
+import { fetchAnalyze, fetchAnalyzeMock } from '@/utils/api';
+import { getState, setState } from '@/utils/storage';
+import type { RuntimeMessage } from '@/types/messages';
 
 const callApi = import.meta.env.VITE_USE_MOCK === 'true' ? fetchAnalyzeMock : fetchAnalyze;
 
@@ -22,6 +22,7 @@ chrome.runtime.onMessage.addListener((msg: RuntimeMessage, _sender, sendResponse
     return true;
   }
 });
+
 
 export async function handleAnalyze(): Promise<void> {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });

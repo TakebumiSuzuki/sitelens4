@@ -28,6 +28,6 @@ export async function fetchAnalyzeMock(domain: string): Promise<AnalyzeResponse>
     headquarters: 'Cupertino, California, USA',
     description: 'Designs, manufactures, and markets consumer electronics and software.',
     products_and_services: 'iPhone, Mac, iPad, Apple Watch, Services',
-    search_query: `${hostname} company news 2026`,
+    search_query: `site:${hostname} service`,
   };
 }
