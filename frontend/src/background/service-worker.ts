@@ -6,8 +6,12 @@ const callApi = import.meta.env.VITE_USE_MOCK === 'true' ? fetchAnalyzeMock : fe
 
 let pendingGoogleTabId: number | null = null;
 
-chrome.runtime.onMessage.addListener((msg: RuntimeMessage, _sender, sendResponse) => {
-  if (msg.type === 'ANALYZE_START') {
+// 拡張機能がインストールされた際にこのファイルが実行され、chrome.runtime.onMessage.addListener が呼び出され、
+// Chrome内部のイベントシステム（メッセージングのレジストリのようなもの）にコールバックが登録される。
+// で、メッセージが実際に発生した時には、このファイル全体が再度読み直され、コールバック関数が作られ、実行される。
+// 引数の型について、第一引数以外の引数の型は、TypeScriptが裏で型を当てはめてくれているので必要ない
+chrome.runtime.onMessage.addListener((message: RuntimeMessage, _sender, sendResponse) => {
+  if (message.type === 'ANALYZE_START') {
     handleAnalyze().catch(async (err) => {
       console.error(err);
       await setState({ status: 'error', error: String(err?.message ?? err) });
@@ -16,8 +20,8 @@ chrome.runtime.onMessage.addListener((msg: RuntimeMessage, _sender, sendResponse
     return true;
   }
 
-  if (msg.type === 'GOOGLE_RESULTS') {
-    handleGoogleResults(msg.urls).catch(console.error);
+  if (message.type === 'GOOGLE_RESULTS') {
+    handleGoogleResults(message.urls).catch(console.error);
     sendResponse({ ok: true });
     return true;
   }

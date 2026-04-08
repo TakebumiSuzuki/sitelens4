@@ -7,6 +7,7 @@ export async function fetchAnalyze(domain: string): Promise<AnalyzeResponse> {
   const res = await fetch(`${base}/api/analyze`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    // この部分は実質的に、{"domain":"https://apple.com"} のような JSON を送ることを意図している。
     body: JSON.stringify({ domain }),
   });
   if (!res.ok) {
@@ -28,6 +29,6 @@ export async function fetchAnalyzeMock(domain: string): Promise<AnalyzeResponse>
     headquarters: 'Cupertino, California, USA',
     description: 'Designs, manufactures, and markets consumer electronics and software.',
     products_and_services: 'iPhone, Mac, iPad, Apple Watch, Services',
-    search_query: `site:${hostname} service`,
+    search_query: `site:${hostname} products`,
   };
 }

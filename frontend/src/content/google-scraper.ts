@@ -16,6 +16,7 @@ export function extractTopUrls(limit = 10): string[] {
 
       // /url?q=... 形式のリダイレクトを展開
       try {
+        // URLはブラウザ標準のWeb API（Node.jsにも組み込み）で、URLを構造的にパースするクラス
         const u = new URL(href, location.href);
         if (u.pathname === '/url' && u.searchParams.get('q')) {
           href = u.searchParams.get('q')!;

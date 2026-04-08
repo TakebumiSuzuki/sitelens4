@@ -3,6 +3,8 @@ import type { StoredState } from '@/types/analyze';
 const KEY = 'sitelens.state';
 
 export async function getState(): Promise<StoredState> {
+  // get("sitelens.state")を呼ぶと、該当するキーとその値がペアで返される、つまり、
+  // 値だけではなく、キー名を含むオブジェクトが返る。だから result[KEY] としている。
   const result = await chrome.storage.local.get(KEY);
   return (
     (result[KEY] as StoredState) ?? {
@@ -14,13 +16,13 @@ export async function getState(): Promise<StoredState> {
 
 export async function setState(patch: Partial<StoredState>): Promise<StoredState> {
   const current = await getState();
-  const next: StoredState = {
+  const newState: StoredState = {
     ...current,
     ...patch,
     updatedAt: Date.now(),
   };
-  await chrome.storage.local.set({ [KEY]: next });
-  return next;
+  await chrome.storage.local.set({ [KEY]: newState });
+  return newState;
 }
 
 export function subscribe(cb: (state: StoredState) => void): () => void {
